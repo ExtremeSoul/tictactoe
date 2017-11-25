@@ -24,5 +24,11 @@ public class Main {
 
             System.out.println(game.getBoard());
         }
+
+        if(game.isWin()) {
+            System.out.println(game.getWinner() + " win!");
+        } else {
+            System.out.println("remis");
+        }
     }
 }
