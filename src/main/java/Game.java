@@ -51,10 +51,10 @@ public class Game {
         if (x < 0 || x >= BOARD_SIZE || y < 0 || y >= BOARD_SIZE) {
             throw new IllegalArgumentException();
         }
-            int i = (y - 1) * BOARD_SIZE + (x - 1);
-            if (board[i] != Symbol.EMPTY) {
-                throw new BoardCellNotEmptyException();
-            }
+        int i = (y - 1) * BOARD_SIZE + (x - 1);
+        if (board[i] != Symbol.EMPTY) {
+            throw new BoardCellNotEmptyException();
+        }
     }
 
     public boolean isEnded() {

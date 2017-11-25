@@ -16,9 +16,11 @@ public class Main {
 
             try {
                 game.nextMove(x, y);
-            }catch (BoardCellNotEmptyException e) {
-                System.out.println("WRONG MOVE, CELL NOT EMPTY");
-            }catch ()
+            } catch (BoardCellNotEmptyException e) {
+                System.out.println("Wrong move, cell not empty!");
+            } catch (IllegalArgumentException e) {
+                System.out.println("Incorrect move!");
+            }
 
             System.out.println(game.getBoard());
         }
