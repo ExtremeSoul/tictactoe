@@ -48,7 +48,7 @@ public class Game {
 //        }else{
 //            throw new IndexOutOfBoundsException("POLE JEST ZAJETE");
 //        }
-        if (x < 0 || x >= BOARD_SIZE || y < 0 || y >= BOARD_SIZE) {
+        if (x < 1 || x > BOARD_SIZE || y < 1 || y > BOARD_SIZE) {
             throw new IllegalArgumentException();
         }
         int i = (y - 1) * BOARD_SIZE + (x - 1);
