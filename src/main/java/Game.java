@@ -55,6 +55,7 @@ public class Game {
         if (board[i] != Symbol.EMPTY) {
             throw new BoardCellNotEmptyException();
         }
+        board[i] = symbol;
     }
 
     public boolean isEnded() {
