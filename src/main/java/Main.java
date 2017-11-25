@@ -14,7 +14,11 @@ public class Main {
             int x = scanner.nextInt();
             int y = scanner.nextInt();
 
-            game.nextMove(x, y);
+            try {
+                game.nextMove(x, y);
+            }catch (BoardCellNotEmptyException e) {
+                System.out.println("WRONG MOVE, CELL NOT EMPTY");
+            }catch ()
 
             System.out.println(game.getBoard());
         }

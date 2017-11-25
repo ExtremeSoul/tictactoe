@@ -23,7 +23,7 @@ public class Game {
     }
 
     public void nextMove(int x, int y) {
-        if(isXTurn) {
+        if (isXTurn) {
             putX(x, y);
         } else {
             putO(x, y);
@@ -41,13 +41,25 @@ public class Game {
     }
 
     private void putSymbol(int x, int y, Symbol symbol) {
-        int i = (y - 1) * BOARD_SIZE + (x - 1);
-        board[i] = symbol;
+
+//        if(symbol == Symbol.EMPTY) {
+//            int i = (y - 1) * BOARD_SIZE + (x - 1);
+//            board[i] = symbol;
+//        }else{
+//            throw new IndexOutOfBoundsException("POLE JEST ZAJETE");
+//        }
+        if (x < 0 || x >= BOARD_SIZE || y < 0 || y >= BOARD_SIZE) {
+            throw new IllegalArgumentException();
+        }
+            int i = (y - 1) * BOARD_SIZE + (x - 1);
+            if (board[i] != Symbol.EMPTY) {
+                throw new BoardCellNotEmptyException();
+            }
     }
 
     public boolean isEnded() {
         for (Symbol symbol : board) {
-            if(symbol == Symbol.EMPTY) {
+            if (symbol == Symbol.EMPTY) {
                 return false;
             }
         }
