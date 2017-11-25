@@ -58,14 +58,39 @@ public class Game {
         board[i] = symbol;
     }
 
+    private Symbol getSymbol (int x, int y) {
+        int i = y * BOARD_SIZE + x;
+        return board[i];
+    }
+
     public boolean isEnded() {
         for (Symbol symbol : board) {
             if (symbol == Symbol.EMPTY) {
                 return false;
             }
         }
-
         return true;
+    }
+    private boolean checkColumn (int column){
+        Symbol first = getSymbol(column,0);
+        if (first == Symbol.EMPTY) {
+            return false;
+        }
+        return getSymbol(column,1) == first && getSymbol(column,2) == first;
+    }
+    private boolean checkRow (int row){
+        Symbol first = getSymbol(0,row);
+        if (first == Symbol.EMPTY) {
+            return false;
+        }
+        return getSymbol(1,row) == first && getSymbol(2,row) == first;
+    }
+    private boolean checkColumn (int column){
+        Symbol first = getSymbol(column,0);
+        if (first == Symbol.EMPTY) {
+            return false;
+        }
+        return getSymbol(column,1) == first && getSymbol(column,2) == first;
     }
 
     public Symbol getActualPlayerSymbol() {
