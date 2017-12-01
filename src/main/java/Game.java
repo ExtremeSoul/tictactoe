@@ -33,11 +33,11 @@ public class Game {
     }
 
     public void putX(int x, int y) {
-        putSymbol(x, y, Symbol.X);
+        putSymbol(x - 1, y - 1, Symbol.X);
     }
 
     public void putO(int x, int y) {
-        putSymbol(x, y, Symbol.O);
+        putSymbol(x - 1, y - 1, Symbol.O);
     }
 
     private void putSymbol(int x, int y, Symbol symbol) {
@@ -49,21 +49,38 @@ public class Game {
 //            throw new IndexOutOfBoundsException("POLE JEST ZAJETE");
 //        }
         if (x < 1 || x > BOARD_SIZE || y < 1 || y > BOARD_SIZE) {
+        if(x < 0 || x >= BOARD_SIZE || y < 0 || y >= BOARD_SIZE) {
             throw new IllegalArgumentException();
         }
-        int i = (y - 1) * BOARD_SIZE + (x - 1);
-        if (board[i] != Symbol.EMPTY) {
+
+        int i = y * BOARD_SIZE + x;
+
+        if(board[i] != Symbol.EMPTY) {
             throw new BoardCellNotEmptyException();
         }
         board[i] = symbol;
     }
 
-    private Symbol getSymbol (int x, int y) {
+    private Symbol getSymbol(int x, int y) {
         int i = y * BOARD_SIZE + x;
         return board[i];
     }
 
     public boolean isEnded() {
+        if (isWin()) {
+            return true;
+        }
+
+        return isDraw();
+    }
+
+    public boolean isWin(){
+        return checkColumn(0) || checkColumn(1) || checkColumn(2) ||
+                checkRow(0) || checkRow(1) || checkRow(2) ||
+                checkLeftCross() || checkRightCross();
+    }
+
+    public boolean isDraw() {
         for (Symbol symbol : board) {
             if (symbol == Symbol.EMPTY) {
                 return false;
@@ -71,26 +88,45 @@ public class Game {
         }
         return true;
     }
-    private boolean checkColumn (int column){
-        Symbol first = getSymbol(column,0);
-        if (first == Symbol.EMPTY) {
-            return false;
-        }
-        return getSymbol(column,1) == first && getSymbol(column,2) == first;
+
+    public Symbol getWinner() {
+        return !isXTurn ? Symbol.X : Symbol.O;
     }
-    private boolean checkRow (int row){
-        Symbol first = getSymbol(0,row);
-        if (first == Symbol.EMPTY) {
+
+    private boolean checkColumn(int column) {
+        Symbol first = getSymbol(column, 0);
+        if(first == Symbol.EMPTY) {
             return false;
         }
-        return getSymbol(1,row) == first && getSymbol(2,row) == first;
+
+        return getSymbol(column, 1) == first && getSymbol(column, 2) == first;
     }
-    private boolean checkColumn (int column){
-        Symbol first = getSymbol(column,0);
-        if (first == Symbol.EMPTY) {
+
+    private boolean checkRow(int row) {
+        Symbol first = getSymbol(0, row);
+        if(first == Symbol.EMPTY) {
             return false;
         }
-        return getSymbol(column,1) == first && getSymbol(column,2) == first;
+
+        return getSymbol(1, row) == first && getSymbol(2, row) == first;
+    }
+
+    private boolean checkLeftCross() {
+        Symbol first = getSymbol(0, 0);
+        if(first == Symbol.EMPTY) {
+            return false;
+        }
+
+        return getSymbol(1, 1) == first && getSymbol(2, 2) == first;
+    }
+
+    private boolean checkRightCross() {
+        Symbol first = getSymbol(2, 0);
+        if(first == Symbol.EMPTY) {
+            return false;
+        }
+
+        return getSymbol(1, 1) == first && getSymbol(0, 2) == first;
     }
 
     public Symbol getActualPlayerSymbol() {
