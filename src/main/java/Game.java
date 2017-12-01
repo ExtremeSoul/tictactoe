@@ -3,13 +3,13 @@ import java.util.Arrays;
 public class Game {
     private static final int BOARD_SIZE = 3;
     private static final String BOARD_TEMPLATE = "   1 2 3 \n" +
-            "  ┌─┬─┬─┐\n" +
-            "1 │%s│%s│%s│\n" +
-            "  ├─┼─┼─┤\n" +
-            "2 │%s│%s│%s│\n" +
-            "  ├─┼─┼─┤\n" +
-            "3 │%s│%s│%s│\n" +
-            "  └─┴─┴─┘\n";
+                                                 "  ┌─┬─┬─┐\n" +
+                                                 "1 │%s│%s│%s│\n" +
+                                                 "  ├─┼─┼─┤\n" +
+                                                 "2 │%s│%s│%s│\n" +
+                                                 "  ├─┼─┼─┤\n" +
+                                                 "3 │%s│%s│%s│\n" +
+                                                 "  └─┴─┴─┘\n";
 
     private Symbol[] board = new Symbol[BOARD_SIZE * BOARD_SIZE];
     private boolean isXTurn = true;
@@ -48,7 +48,7 @@ public class Game {
 //        }else{
 //            throw new IndexOutOfBoundsException("POLE JEST ZAJETE");
 //        }
-        if (x < 1 || x > BOARD_SIZE || y < 1 || y > BOARD_SIZE) {
+
         if(x < 0 || x >= BOARD_SIZE || y < 0 || y >= BOARD_SIZE) {
             throw new IllegalArgumentException();
         }
@@ -130,6 +130,6 @@ public class Game {
     }
 
     public Symbol getActualPlayerSymbol() {
-        return isXTurn ? Symbol.X : Symbol.O;
+        return isXTurn ? Symbol.X : Symbol.O; // Skrócony if. pierwszy jest warunek, później co jest zwrocone przy true, poxniej co przy false
     }
 }
